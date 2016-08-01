@@ -1,0 +1,14 @@
+mixin outputRating(rating)
+  - for (var i = 1; i <= rating; i++)
+    span.glyphicon.glyphicon-star
+  - for (i = rating; i < 5; i++)
+    span.glyphicon.glyphicon-star-empty
+
+mixin formatDate(dateString)
+  -var date = new Date(dateString);
+  -var monthNames = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+  -var d = date.getDate();
+  -var m = monthNames[date.getMonth()];
+  -var y = date.getFullYear();
+  -var output = y + '/' + m + '/' +d;
+  =output

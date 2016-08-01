@@ -1,0 +1,79 @@
+<navigation></navigation>
+<div class="container">
+	<page-header content="vm.pageHeader"></page-header>
+	
+	<div class="row">
+		<div class="col-xs-12 col-md-9">
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					<p class="rating" rating-stars rating="vm.data.location.rating"></p>
+					<p>{{ vm.data.location.address }}</p>
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h2 class="panel-title">营业时间</h2>
+						</div>
+						<div class="panel-body">
+							<p ng-repeat="time in vm.data.location.openingTimes" ng-switch on="time.closed">
+								{{ time.days }} :
+								<span class="opening-time" ng-switch-when="true">closed</span>
+								<span class="opening-time" ng-switch-default>{{ time.opening + " - " +	time.closing }}</span>
+							</p>
+						</div>
+					</div>
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h2 class="panel-title">本店特供：</h2>
+						</div>
+						<div class="panel-body">
+							<span class="label label-warning label-facility" ngrepeat="facility in vm.data.location.facilities">
+								<span class="glyphicon glyphicon-ok"></span>
+								{{ facility }}
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 location-map">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h2 class="panel-title">查看地图</h2>
+						</div>
+						<div class="panel-body">
+							 <img src="http://restapi.amap.com/v3/staticmap?location={{vm.data.location.coords[0] }},{{ vm.data.location.coords[1]}}&zoom=17&size=400*350&markers=mid,,A:{{vm.data.location.coords[0] }},{{ vm.data.location.coords[1]}}&key=c8b8f6f5bf497101b5075b026845fc8b" class="img-responsive img-rounded">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="panel panel-primary review-panel">
+						<div class="panel-heading">
+							<a  ng-show="vm.isLoggedIn" ng-click="vm.popupReviewForm()"  class="btn btn-default pull-right">添加评论</a>
+							<a ng-hide="vm.isLoggedIn" href="/#/login?page={{ vm.currentPath }}" class="btn btn-default pull-right">登入并评论</a>
+							<h2 class="panel-title">用户评论</h2>
+						</div>
+						<div class="panel-body review-container">
+							<div class="review" ng-repeat="review in vm.data.location.reviews | orderBy: 'createdOn':false">
+								<div class="row">
+									<div class="well well-sm review-header">
+										<span class="rating" rating-stars rating="review.rating"></span>
+										<span class="reviewAuthor">{{ review.author }}</span>
+										<small class="reviewTimestamp">{{ review.createdOn | date: 'yyyy - MM - dd'}}</small>
+									</div>
+									<div class="col-xs-12">
+										<p ng-bind-html="review.reviewText | addHtmlLineBreaks"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-3">
+			<p class="lead">{{ vm.data.location.name }} {{vm.sidebar.context}}</p>
+			<p>{{vm.sidebar.callToAction}}</p>
+		</div>
+	</div>
+
+	<footer-generic></footer-generic>
+</div>

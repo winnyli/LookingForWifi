@@ -1,0 +1,30 @@
+<div class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header"><a href="/" class="navbar-brand">找WIFI</a>
+			<button type="button" data-toggle="collapse" data-target="#navbarmain" class="navbar-toggle">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+		<div id="navbar-main" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="/#about">关于我们</a></li>
+				<li><a  ng-show="navvm.isLoggedIn" ng-click="navvm.popupAddLoc()"  class="btn btn-default">添加地点</a></li>
+				<li><a ng-hide="navvm.isLoggedIn" href="/#/login?page={{ navvm.currentPath }}" >添加地点</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li ng-hide="navvm.isLoggedIn"><a href="/#login/?page={{ navvm.currentPath }}">登入</a></li>
+				<li ng-show="navvm.isLoggedIn" class="dropdown">
+					<a href="" class="dropdown-toggle" data-toggle="dropdown">
+						{{ navvm.currentUser.name }} 
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="" ng-click="navvm.logout()">登出</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
